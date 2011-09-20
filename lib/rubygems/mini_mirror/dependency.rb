@@ -4,9 +4,14 @@ module Gem
 
       attr_reader :dependency, :sources
 
-      def initialize(name, requirements, sources = Gem.sources)
-        @sources = sources
+      def initialize(name, requirements, srcs = nil, options = {})
+        @sources = srcs || Gem.sources
         @dependency = Gem::Dependency.new(name,requirements)
+        @development = !! options[:development]
+      end
+
+      def development?
+        @development
       end
 
       def method_missing(*args)

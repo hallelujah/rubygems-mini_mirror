@@ -1,5 +1,5 @@
-require "rubygems/mini_mirror/version"
 require 'rubygems'
+require "rubygems/mini_mirror/version"
 require 'yaml'
 
 module Gem

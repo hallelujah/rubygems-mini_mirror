@@ -15,16 +15,17 @@ module Gem
         @to_fetch = {}
         @resources = []
         @resources_signatures = {}
+        super
       end
 
       def load_resource!(options)
-       klass = @resource_handler.find(options)
-       resource = klass.new(self, options)
-       unless @resources_signatures[resource.tag]
-         resource.load!
-         @resources << resource
-         @resources_signatures[resource.tag] = true
-       end
+        klass = @resource_handler.find(options)
+        resource = klass.new(self, options)
+        unless @resources_signatures[resource.tag]
+          resource.load!
+          @resources << resource
+          @resources_signatures[resource.tag] = true
+        end
       end
 
       def load_all!

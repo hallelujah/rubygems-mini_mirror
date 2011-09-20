@@ -5,17 +5,18 @@ module Gem
       def initialize(runner, options)
         @options = options
         @runner ||= runner
-        @sources ||= Gem.sources
+        @sources = nil
         @dependencies ||= []
       end
 
       def gem(name,specs, options={})
         specs.each do |spec|
-          @dependencies << Gem::MiniMirror::Dependency.new(name,spec, options[:source] || sources)
+          @dependencies << Gem::MiniMirror::Dependency.new(name,spec, options.delete(:source) || @sources, options)
         end
       end
 
       def source(*sources)
+        @sources ||= []
         @sources |= sources
       end
 

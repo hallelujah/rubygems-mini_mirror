@@ -1,13 +1,13 @@
 module Gem
   module MiniMirror
     module Resources
-      class RubyFileResource
+      class RubyFile
 
         include Gem::MiniMirror::Resource
         register(:type => 'ruby', :ext => ['.rb'])
 
         def initialize(runner,options)
-          path = options[:path]
+          path = File.expand_path(options[:path])
           throw :resource_load_error, {:path => path} unless File.exist?(path)
           @path = path
           super
@@ -18,7 +18,7 @@ module Gem
         end
 
         def tag
-         'path-' + File.expand_path(@path)
+         'path-' + @path
         end
       end
     end
