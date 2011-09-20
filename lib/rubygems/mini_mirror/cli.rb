@@ -7,7 +7,6 @@ module Gem
         @runner ||= runner
         @sources ||= Gem.sources
         @dependencies ||= []
-        super
       end
 
       def gem(name,specs, options={})
