@@ -14,7 +14,7 @@ module Gem
         end
 
         def load!
-          instance_eval File.read(@path), __LINE__ + 1
+          instance_eval(File.read(@path),__FILE__,  __LINE__ + 1)
         end
 
         def tag

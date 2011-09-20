@@ -2,10 +2,10 @@ module Gem
   module MiniMirror
     class Dependency
 
-      attr_reader :dependency, :sources_uri
+      attr_reader :dependency, :sources
 
-      def initialize(name, spec, sources_uri)
-        @sources_uri = sources_uri
+      def initialize(name, spec, sources)
+        @sources = sources
         @dependency = Gem::Dependency.new(name,spec)
       end
 

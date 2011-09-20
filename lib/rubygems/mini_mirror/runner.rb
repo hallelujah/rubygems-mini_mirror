@@ -1,9 +1,10 @@
+require 'rubygems/mini_mirror/resources'
 module Gem
   module MiniMirror
     class Runner
 
       include Gem::MiniMirror::Finder
-      attr_reader :specs
+      attr_reader :specs, :resource_handler
 
       def initialize
         @resource_handler = ResourceHandler.instance
@@ -37,7 +38,7 @@ module Gem
 
       def self.run(file)
         runner = new
-        Gem::MiniMirror::Resources::RubyFileResource.new(runner,:path => file)
+        runner.load_resource! :path => file, :type => 'ruby'
         runner.load_all!
         puts "Installing following gems"
         puts runner.specs
