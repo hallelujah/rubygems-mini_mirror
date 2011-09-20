@@ -10,7 +10,7 @@ module Gem
     autoload :Resource, 'rubygems/mini_mirror/resource'
     autoload :Dependency, 'rubygems/mini_mirror/dependency'
     autoload :ResourceHandler, 'rubygems/mini_mirror/resource_handler'
-    autoload :Resources, 'rubygems/mini_mirror/resources/ruby_file'
+    autoload :Resources, 'rubygems/mini_mirror/resources'
     autoload :Runner, 'rubygems/mini_mirror/runner'
 
     def self.resources_handler
