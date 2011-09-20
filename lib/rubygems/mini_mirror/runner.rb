@@ -31,7 +31,7 @@ module Gem
       def load_all!
         return if @loaded
         @resources.each do |r|
-          add_to_deps *r.dependencies
+          add_to_deps(*r.dependencies)
         end
         @loaded = true
         find_all_specs
