@@ -32,6 +32,7 @@ module Gem
 
       def handle_error(errors)
         # MiniMirror.ui.warn(errors.inspect)
+        warn errors.inspect
       end
 
     end
