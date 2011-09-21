@@ -14,12 +14,12 @@ module Gem
         @dependencies ||= []
       end
 
-      def gem(name, specs, options={})
-        if specs.empty?
-          specs = ['>=0']
+      def gem(name, reqs, options={})
+        if reqs.empty?
+          reqs = ['>=0']
         end
-        specs.each do |spec|
-          @dependencies << Gem::MiniMirror::Dependency.new(name,spec, options.delete(:source) || @sources, options)
+        reqs.each do |req|
+          @dependencies << Gem::MiniMirror::Dependency.new(name, req, options.delete(:source) || @sources, options)
         end
       end
 
