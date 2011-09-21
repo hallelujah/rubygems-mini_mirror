@@ -85,10 +85,10 @@ Building your own resource handler is also easy
 ```
 
 ```ruby
-    # Usage :
-    # require 'rubygems/mini_mirror'
-    # require 'my_resource_handler'
-    # Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
+# Usage :
+require 'rubygems/mini_mirror'
+require 'my_resource_handler'
+Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
 ```
 
 
