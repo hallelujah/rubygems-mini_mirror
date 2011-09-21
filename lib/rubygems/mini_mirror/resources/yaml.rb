@@ -6,6 +6,7 @@ module Gem
         register(:type => 'yaml', :ext => ['.yml', '.yaml'])
 
         def load!
+          super
           config = YAML.load_file(@path)
           config.each do |instructs|
             instructs.each do |k, args|

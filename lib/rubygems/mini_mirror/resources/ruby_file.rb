@@ -6,6 +6,7 @@ module Gem
         register(:type => 'ruby', :ext => ['.rb'])
 
         def load!
+          super
           instance_eval(File.read(@path),__FILE__,  __LINE__ + 1)
         end
 
