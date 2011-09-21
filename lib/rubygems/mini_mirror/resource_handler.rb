@@ -18,7 +18,7 @@ module Gem
         end
 
         def message
-          "could not find handler for file extension '#@extension'" + 
+          "could not find handler for file extension '#@extension'" +
           @type.to_s.empty? ? "" : " or for file type #@type"
         end
       end
