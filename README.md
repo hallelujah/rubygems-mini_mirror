@@ -3,25 +3,23 @@
 This gem aims at providing a way to mirror only some gems you want from rubygems.
 
 Create a minigems file
+
 ```ruby
-    # minigems
-
-    source :gemcutter
-
-    gem 'rails', ['~> 1.2.0','>= 3.0']
-
-    gem 'mislav-will_paginate', ['= 2.3.11'], :source => 'http://gems.github.com'
-
-    # You can also provide a resource file which provide a list of gems
-    # The filetype is guessed by the extension of the file and can be overriden.
-    # :type option can be :yaml, :ruby
-    resource :path => '/Users/hallelujah/repos/mini_gems.yml', :type => 'yaml'
+# minigems
+source :gemcutter
+gem 'rails', ['~> 1.2.0','>= 3.0']
+gem 'mislav-will_paginate', ['= 2.3.11'], :source => 'http://gems.github.com'
+# You can also provide a resource file which provide a list of gems
+# The filetype is guessed by the extension of the file and can be overriden.
+# :type option can be :yaml, :ruby
+resource :path => '/Users/hallelujah/repos/mini_gems.yml', :type => 'yaml'
 ```
 
 The princips
 ------------
 
 This nice DSL is mainly inspired by Bundler, so it should be familiar to you.
+
 ```ruby
     # Fetching rails with version 1.2.3 and 2.3.5 with runtime and development dependencies
     # By default development dependencies are not fetched
@@ -34,7 +32,9 @@ This nice DSL is mainly inspired by Bundler, so it should be familiar to you.
     # To add another resource file :
     resource :path => 'development_gems.yml'
 ```
+
 Building your own resource handler is also easy
+
 ```ruby
     # You can build your own resource handler :
     # my_resource_handler.rb
@@ -71,6 +71,8 @@ Building your own resource handler is also easy
       end
     end
 ```
+
+```yaml
     # database.yml
 
     sources: :gemcutter
@@ -80,12 +82,14 @@ Building your own resource handler is also easy
         host: localhost
         username: root
         password:
+```
 
+```ruby
     # Usage :
     # require 'rubygems/mini_mirror'
     # require 'my_resource_handler'
     # Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
-
+```
 
 
 
