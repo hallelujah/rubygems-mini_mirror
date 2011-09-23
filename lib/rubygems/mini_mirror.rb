@@ -1,5 +1,6 @@
 require 'rubygems'
 require "rubygems/mini_mirror/version"
+require "rubygems/array_ext"
 require 'yaml'
 
 module Gem
