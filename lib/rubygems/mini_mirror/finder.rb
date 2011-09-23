@@ -34,7 +34,7 @@ module Gem
       def add_to_deps(*deps)
         deps.each do |dep|
           next if is_in_deps?(dep)
-          dep = Gem::MiniMirror::Dependency.new(dep.name, dep.requirement,dep.respond_to?(:sources) ? dep.sources : Gem.sources)
+          dep = Gem::MiniMirror::Dependency.new(dep.name, dep.requirement,dep.respond_to?(:sources) ? dep.sources : Gem.sources, {:development => dep.respond_to?(:development?) ? dep.development? : false})
           @dependencies_list[dep.name.to_s][dep.requirement.to_s] = true
           @dependencies.push(dep)
         end

@@ -23,6 +23,7 @@ This nice DSL is mainly inspired by Bundler, so it should be familiar to you.
 ```ruby
 # Fetching rails with version 1.2.3 and 2.3.5 with runtime and development dependencies
 # By default development dependencies are not fetched
+# *WARNING* fetching dependencies may be a slow process !! Use it with caution.
 gem 'rails', ['= 1.2.3', '2.3.5'], :development => true
 
 # If you just want to fetch development dependencies for 1.2.3 version, you need separated definitions :
