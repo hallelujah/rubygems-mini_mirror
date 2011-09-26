@@ -2,16 +2,15 @@ module Gem
   module MiniMirror
     module Finder
 
-      def initialize
-        @fetcher = Gem::SpecFetcher.fetcher
-        super
+      def initialize(options = {})
+        @spec_fetcher = Gem::SpecFetcher.fetcher
+        super()
       end
-
 
       def find_all_specs
         @dependencies.each do |dep|
           with_sources dep.sources do
-            found, errors = @fetcher.fetch_with_errors dep, true, false
+            found, errors = @spec_fetcher.fetch_with_errors dep, true, false
             found.each do |spec,source_uri|
               next if is_in_specs?(spec)
               add_to_specs(spec,source_uri)
