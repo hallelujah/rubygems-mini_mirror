@@ -4,7 +4,9 @@ module Gem
 
       attr_reader :dependency, :sources
 
-      def initialize(name, requirements, srcs = nil, options = {})
+      def initialize(name, requirements, *args)
+        options = args.extract_options!
+        srcs = args.empty? ? nil : args.flatten
         @sources = srcs || Gem.sources
         @dependency = Gem::Dependency.new(name,requirements)
         @development = !! options[:development]

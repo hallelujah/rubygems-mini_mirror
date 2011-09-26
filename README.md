@@ -23,6 +23,7 @@ This nice DSL is mainly inspired by Bundler, so it should be familiar to you.
 ```ruby
 # Fetching rails with version 1.2.3 and 2.3.5 with runtime and development dependencies
 # By default development dependencies are not fetched
+# *WARNING* fetching dependencies may be a slow process !! Use it with caution.
 gem 'rails', ['= 1.2.3', '2.3.5'], :development => true
 
 # If you just want to fetch development dependencies for 1.2.3 version, you need separated definitions :
@@ -91,6 +92,23 @@ require 'my_resource_handler'
 Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
 ```
 
+By gem command
+--------------
+
+It provides a gem command
+
+```bash
+gem install rubygems-mini_mirror
+gem mini_mirror help
+gem mini_mirror -c your_gems_resource.rb -p 5 -m /home/mirrors/rubygems
+# Generate index
+gem generate_index --directory=/home/mirrors/rubygems --modern
+```
+
+# Thanks
+
+Thank for the rubygems team for their work on rubygems-mirror which inspired a lot this gem.
+Some parts of code of this gem are copied from [rubygems-mirror](https://github.com/rubygems/rubygems-mirror) gem.
 
 
 # Note on Patches/Pull Requests

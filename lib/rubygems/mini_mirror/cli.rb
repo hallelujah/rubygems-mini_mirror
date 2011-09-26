@@ -14,7 +14,9 @@ module Gem
         @dependencies ||= []
       end
 
-      def gem(name, reqs, options={})
+      def gem(name, *reqs)
+        options = reqs.extract_options!
+        reqs.flatten!
         if reqs.empty?
           reqs = ['>=0']
         end
