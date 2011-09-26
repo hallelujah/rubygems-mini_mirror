@@ -1,0 +1,50 @@
+require 'rubygems/mini_mirror'
+require 'rubygems/command'
+require 'yaml'
+
+class Gem::MiniMirror::Command < Gem::Command
+  SUPPORTS_INFO_SIGNAL = Signal.list['INFO']
+
+  def initialize
+    super 'mirror', 'Mirror a gem repository'
+    add_option '-c', '--config-file=FILE', :ConfigFile, 'the main config file' do |file, options|
+      options[:path] = file
+    end
+    add_option '-t', '--file-type=FILETYPE', :FileType, 'file type of config file if not guessed' do |t, options|
+      options[:type] = t
+    end
+    add_options '-d', '--cd=DIR', :Directory, 'directory to cd into before running the command' do |dir,options|
+      options[:cd] = dir
+    end
+    add_options '-r', '--require=lib1,lib2', Array, 'A list of libs to require before running the command' do |libs, options|
+      options[:libs] ||= []
+      options[:libs].push(*libs)
+    end
+  end
+
+  def description # :nodoc:
+    <<-EOF
+The mini_mirror command mirrors remote gem
+repositories to a local path. Not all the repository of rubygem is mirrored but only those you have chosen with their dependencies
+
+  See https://github.com/hallelujah/rubygems-mini_mirror
+
+    EOF
+  end
+
+  def execute
+    Dir.chdir(options.delete(:cd) || '.') do
+      mirror = Gem::MiniMirror::Runer.new(options)
+      say "Total gems: #{mirror.gems.size}"
+      num_to_fetch = mirror.gems_to_fetch.size
+      progress = ui.progress_reporter num_to_fetch, "Fetching #{num_to_fetch} gems"
+      trap(:INFO) { puts "Fetched: #{progress.count}/#{num_to_fetch}" } if SUPPORTS_INFO_SIGNAL
+      mirror.update_gems { progress.updated true }
+      num_to_delete = mirror.gems_to_delete.size
+      progress = ui.progress_reporter num_to_delete, "Deleting #{num_to_delete} gems"
+      trap(:INFO) { puts "Fetched: #{progress.count}/#{num_to_delete}" } if SUPPORTS_INFO_SIGNAL
+      mirror.delete_gems { progress.updated true }
+    end
+
+  end
+end

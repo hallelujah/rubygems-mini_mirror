@@ -65,26 +65,29 @@ module Gem
         gems_to_fetch.each do |g|
           @pool.job do
             @fetcher.fetch(from(gems_with_sources[g],'gems',g),to('gems',g))
+            yield
           end
         end
+        @pool.run_til_done
       end
 
       def delete_gems
         gems_to_delete.each do |g|
           @pool.job do
             File.delete(to('gems',g))
+            yield
           end
         end
+        @pool.run_til_done
       end
 
       def update
         update_gems
         delete_gems
-        @pool.run_til_done
       end
 
-      def self.run(file)
-        runner = new
+      def self.run(file, options = {})
+        runner = new(options)
         runner.load_resource! :path => file, :type => 'ruby'
         runner.update
       end
