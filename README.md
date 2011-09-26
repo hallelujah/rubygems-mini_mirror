@@ -92,6 +92,10 @@ require 'my_resource_handler'
 Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
 ```
 
+# Thanks
+
+Thank for the rubygems team for their work on rubygems-mirror which inspired a lot this gem.
+Some parts of code of this gem are copied from [rubygems-mirror](https://github.com/rubygems/rubygems-mirror) gem.
 
 
 # Note on Patches/Pull Requests
