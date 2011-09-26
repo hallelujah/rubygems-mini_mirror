@@ -11,19 +11,21 @@ Gem::Specification.new do |s|
   s.summary     = %q{A rubygems mini mirror}
   s.description = %q{
   Mirror some version of gems with Gem::Version DSL
-  Create a mini_gem file and add to it this :
+  Create a mini_gem file and add this to it :
   source :gemcutter
   gem 'rails', ['~> 1.2.0', '>= 3.0']
 
   or
   source :gemcutter
-  file '/your_path/mini_gem.yml'
+  resource :path => '/your_path/mini_gem.yml'
 
   # /your_path/mini_gem.yml
 
-  rails:
-    - '~> 1.2.0'
-    - '>= 3.0'
+  gem:
+    - rails:
+      -
+        - '~> 1.2.0'
+        - '>= 3.0'
 
   It will solve the dependencies for you so you don't have to write an exhaustive list of the gems you want to mirror
   }
