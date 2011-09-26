@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   }
 
   s.rubyforge_project = "rubygems-mini_mirror"
+  s.add_runtime_dependency 'net-http-persistent', '>=1.2.5'
   s.add_development_dependency 'rake'
 
   s.files         = `git ls-files`.split("\n")
