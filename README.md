@@ -92,6 +92,19 @@ require 'my_resource_handler'
 Gem::MiniMirror::Runner.run :path => 'database.yml', :type => 'activerecord'
 ```
 
+By gem command
+--------------
+
+It provides a gem command
+
+```bash
+gem install rubygems-mini_mirror
+gem mini_mirror help
+gem mini_mirror -c your_gems_resource.rb -p 5 -m /home/mirrors/rubygems
+# Generate index
+gem generate_index --directory=/home/mirrors/rubygems --modern
+```
+
 # Thanks
 
 Thank for the rubygems team for their work on rubygems-mirror which inspired a lot this gem.
