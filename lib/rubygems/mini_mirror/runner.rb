@@ -17,7 +17,7 @@ module Gem
         @resources = []
         @resources_signatures = {}
         @pool = Gem::MiniMirror::Pool.new(options[:pool_size] || Gem::MiniMirror::POOL_SIZE)
-        @gems_dir = options[:gems_dir] || DEFAULT_GEMS_DIR
+        @gems_dir = File.expand_path(options[:gems_dir] || DEFAULT_GEMS_DIR)
         @fetcher = Gem::MiniMirror::Fetcher.new
         super
       end
@@ -41,7 +41,7 @@ module Gem
       end
 
       def existing_gems
-        Dir[to('gems','.*gem')].entries.map{|f| File.basename(f)}
+        Dir[to('gems','*.gem')].entries.map{|f| File.basename(f)}
       end
 
       def gems_with_sources
@@ -101,8 +101,6 @@ module Gem
         @loaded = true
         find_all_specs
       end
-
-
 
     end
   end
