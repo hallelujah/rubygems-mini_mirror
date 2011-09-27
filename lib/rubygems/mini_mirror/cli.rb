@@ -16,6 +16,7 @@ module Gem
 
       def gem(name, *reqs)
         options = reqs.extract_options!
+        options[:all] = options.has_key?(:all) ? options[:all] : true
         reqs.flatten!
         if reqs.empty?
           reqs = ['>=0']

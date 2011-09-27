@@ -7,17 +7,21 @@ module Gem
         super()
       end
 
+      def fetch_deps(dep)
+        with_sources dep.sources do
+          found, errors = @spec_fetcher.fetch_with_errors dep, dep.respond_to?(:all) ? dep.all? : false , false
+          found.each do |spec,source_uri|
+            next if is_in_specs?(spec)
+            add_to_specs(spec,source_uri)
+            add_to_deps(*spec.runtime_dependencies)
+            add_to_deps(*spec.development_dependencies) if dep.development?
+          end
+        end
+      end
+
       def find_all_specs
         @dependencies.each do |dep|
-          with_sources dep.sources do
-            found, errors = @spec_fetcher.fetch_with_errors dep, true, false
-            found.each do |spec,source_uri|
-              next if is_in_specs?(spec)
-              add_to_specs(spec,source_uri)
-              add_to_deps(*spec.runtime_dependencies)
-              add_to_deps(*spec.development_dependencies) if dep.development?
-            end
-          end
+          fetch_deps(dep)
         end
       end
 
@@ -33,7 +37,7 @@ module Gem
       def add_to_deps(*deps)
         deps.each do |dep|
           next if is_in_deps?(dep)
-          dep = Gem::MiniMirror::Dependency.new(dep.name, dep.requirement,dep.respond_to?(:sources) ? dep.sources : Gem.sources, {:development => dep.respond_to?(:development?) ? dep.development? : false})
+          dep = Gem::MiniMirror::Dependency === dep ? dep : Gem::MiniMirror::Dependency.new(dep.name, dep.requirement,dep.respond_to?(:sources) ? dep.sources : Gem.sources, {:development => dep.respond_to?(:development?) ? dep.development? : false})
           @dependencies_list[dep.name.to_s][dep.requirement.to_s] = true
           @dependencies.push(dep)
         end
