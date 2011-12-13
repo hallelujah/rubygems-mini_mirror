@@ -9,7 +9,7 @@ module Gem
 
       def fetch_deps(dep)
         with_sources dep.sources do
-          found, errors = @spec_fetcher.fetch_with_errors dep, dep.respond_to?(:all) ? dep.all? : false , false
+          found, errors = @spec_fetcher.fetch_with_errors dep, dep.respond_to?(:all?) ? dep.all? : false , false
           found.each do |spec,source_uri|
             next if is_in_specs?(spec)
             add_to_specs(spec,source_uri)
@@ -31,7 +31,7 @@ module Gem
       end
 
       def is_in_specs?(spec)
-        @specs_list.key?(spec.platform.to_s) && @specs_list[spec.platform.to_s].key?(spec.name.to_s) && @specs_list[spec.platform.to_s][spec.name.to_s].has_key?(spec.version.to_s)
+        @specs_list[spec.platform.to_s][spec.name.to_s].key?(spec.version.to_s) rescue false
       end
 
       def add_to_deps(*deps)
