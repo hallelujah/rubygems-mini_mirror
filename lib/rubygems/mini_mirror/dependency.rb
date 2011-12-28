@@ -10,7 +10,7 @@ module Gem
         @sources = srcs || Gem.sources
         @dependency = Gem::Dependency.new(name,requirements)
         @development = !! options[:development]
-        @all = !! options[:all]
+        @all = !! (options[:all] || true)
       end
 
       def all?
